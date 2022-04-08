@@ -1,4 +1,4 @@
-package collection;
+package ru.kostyapetrov.lab_5.collection;
 
 public class Coordinates {
     private long x; //Максимальное значение поля: 485
@@ -16,5 +16,8 @@ public class Coordinates {
     public Float getY(){
         return y;
     }
-
+    @Override
+    public String toString(){
+        return String.format("%s,%s",x,y);
+    }
 }

@@ -1,4 +1,4 @@
-package commands;
+package ru.kostyapetrov.lab_5.commands;
 
 public interface Commandable {
 
@@ -6,4 +6,6 @@ public interface Commandable {
     public default void execute(){
         execute(null);
     }
+
+
 }

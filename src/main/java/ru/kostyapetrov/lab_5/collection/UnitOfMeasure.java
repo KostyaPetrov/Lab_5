@@ -1,7 +1,16 @@
-package collection;
+package ru.kostyapetrov.lab_5.collection;
 public enum UnitOfMeasure {
-    LITERS,
-    MILLILITERS,
-    GRAMS;
+    LITERS("LITERS"),
+    MILLILITERS("MILLILITERS"),
+    GRAMS("GRAMS");
 
+    private final String word;
+
+    UnitOfMeasure(String word) {
+        this.word=word;
+    }
+
+    public String getWord(){
+        return word;
+    }
 }

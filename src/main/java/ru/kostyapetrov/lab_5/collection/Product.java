@@ -1,8 +1,6 @@
-package collection;
-import java.util.ArrayList;
+package ru.kostyapetrov.lab_5.collection;
 
-import console.ConsoleManager;
-import java.util.Collections;
+
 import java.time.LocalDate;
 
 
@@ -17,10 +15,12 @@ public class Product {
     private UnitOfMeasure unitOfMeasure; //Поле не может быть null
     private Person owner; //Поле может быть null
 
-    ArrayList listId = new ArrayList<>();
-    public Product(String name, int price, String partNumber, Float manufactureCost, UnitOfMeasure unitOfMeasure){
+//    ArrayList listId = new ArrayList<>();
+    public Product(Integer id, String name, Coordinates coordinates, LocalDate creationDate, int price, String partNumber, Float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner){
+        this.id=id;
         this.name=name;
         this.coordinates=coordinates;
+        this.creationDate=creationDate;
         this.price=price;
         this.partNumber=partNumber;
         this.manufactureCost=manufactureCost;
@@ -28,26 +28,33 @@ public class Product {
         this.owner=owner;
     }
 
-    public void uniqueId(){
-        if (listId.isEmpty()){
-            listId.add(1);
-            this.id= 1;
-        }else {
-            listId.add((int) Collections.max(listId) + 1);
-            this.id= (int) Collections.max(listId) + 1;
+//    public void uniqueId(){
+//        if (listId.isEmpty()){
+//            listId.add(1);
+//            this.id= 1;
+//        }else {
+//            listId.add((int) Collections.max(listId) + 1);
+//            this.id= (int) Collections.max(listId) + 1;
+//
+//        }
+//    }
 
-        }
-    }
 
-    public void getDate(){
-        LocalDate date = LocalDate.now();
-        this.creationDate= date;
-    }
     @Override
     public String toString(){
-        return String.format();
+        return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",id,name,coordinates, creationDate,price,partNumber,manufactureCost,unitOfMeasure,owner);
     }
 
+    public Integer getPrice(){
+        return price;
+    }
+    public LocalDate getCreationDate(){
+        return creationDate;
+    }
+    public Float getManufactureCost(){return manufactureCost;}
+    public UnitOfMeasure getUnitOfMeasure(){
+        return unitOfMeasure;
+    }
 //    public String createElementCollection(){
 //        uniqueId();
 //

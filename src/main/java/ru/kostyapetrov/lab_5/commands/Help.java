@@ -1,6 +1,8 @@
-package commands;
+package ru.kostyapetrov.lab_5.commands;
 
-import console.ConsoleManager;
+
+
+import ru.kostyapetrov.lab_5.console.ConsoleManager;
 
 public class Help  implements Commandable {
     private ConsoleManager consoleManager;
@@ -14,8 +16,8 @@ public class Help  implements Commandable {
                 "\"info\" : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +
                 "\"show\" : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" +
                 "\"add\" : добавить новый элемент в коллекцию\n" +
-                "\"update id\" {element} : обновить значение элемента коллекции, id которого равен заданному\n" +
-                "\"remove_by_id id\" : удалить элемент из коллекции по его id\n" +
+                "\"update\" id {element} : обновить значение элемента коллекции, id которого равен заданному\n" +
+                "\"remove_by_id\" id : удалить элемент из коллекции по его id\n" +
                 "\"clear\" : очистить коллекцию\n" +
                 "\"save\" : сохранить коллекцию в файл\n" +
                 "\"execute_script file_name\" : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.\n" +
@@ -26,7 +28,7 @@ public class Help  implements Commandable {
                 "\"remove_all_by_manufacture_cost\" manufactureCost : удалить из коллекции все элементы, значение поля manufactureCost которого эквивалентно заданному\n" +
                 "\"count_greater_than_unit_of_measure\" unitOfMeasure : вывести количество элементов, значение поля unitOfMeasure которых больше заданного\n" +
                 "\"print_field_descending_unit_of_measure\" : вывести значения поля unitOfMeasure всех элементов в порядке убывания");
-        //ConsoleManager consoleManager=new ConsoleManager();
+
         consoleManager.getCommand();
     }
 

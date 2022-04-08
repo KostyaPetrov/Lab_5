@@ -1,4 +1,4 @@
-package collection;
+package ru.kostyapetrov.lab_5.collection;
 
 import java.time.LocalDateTime;
 
@@ -20,5 +20,9 @@ public class Person {
     }
     public Double getWeight(){
         return weight;
+    }
+
+    public String toString(){
+        return String.format(" %s, %s, %s",name,birthday,weight);
     }
 }

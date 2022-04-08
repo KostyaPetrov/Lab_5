@@ -1,8 +1,9 @@
-package commands;
+package ru.kostyapetrov.lab_5.commands;
 
-import console.ConsoleManager;
-import file.FileManager;
-import collection.CollectionManager;
+
+import ru.kostyapetrov.lab_5.collection.CollectionManager;
+import ru.kostyapetrov.lab_5.console.ConsoleManager;
+import ru.kostyapetrov.lab_5.file.FileManager;
 
 public class Save implements Commandable {
     private FileManager fileManager;
@@ -18,7 +19,7 @@ public class Save implements Commandable {
     @Override
     public void execute(String s){
 
-        fileManager.fileWrite(collectionManager.getNewCollection());
+        fileManager.fileWrite(collectionManager.getCollection());
 
 
         consoleManager.getCommand();

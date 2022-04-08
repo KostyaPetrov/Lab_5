@@ -1,5 +1,7 @@
-package commands;
-import console.ConsoleManager;
+package ru.kostyapetrov.lab_5.commands;
+
+
+import ru.kostyapetrov.lab_5.console.ConsoleManager;
 
 public class Exit implements Commandable {
     private ConsoleManager consoleManager;
