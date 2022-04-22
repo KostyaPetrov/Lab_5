@@ -2,7 +2,6 @@ package ru.kostyapetrov.lab_5.commands;
 
 import ru.kostyapetrov.lab_5.collection.CollectionManager;
 import ru.kostyapetrov.lab_5.collection.Product;
-import ru.kostyapetrov.lab_5.collection.UnitOfMeasure;
 import ru.kostyapetrov.lab_5.console.ConsoleManager;
 
 import java.util.LinkedList;
@@ -27,6 +26,6 @@ public class CountGreaterThanUnitMeasure implements Commandable{
         }
         System.out.println("In collection "+count+" elements great than "+comparisonUnitOfMeasure);
 
-        consoleManager.getCommand();
+
     }
 }

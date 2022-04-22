@@ -5,43 +5,72 @@ import ru.kostyapetrov.lab_5.collection.*;
 
 
 import ru.kostyapetrov.lab_5.console.ConsoleManager;
+import ru.kostyapetrov.lab_5.exeption.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+import java.time.format.DateTimeParseException;
+import java.lang.IllegalArgumentException;
 
 public class FileManager {
     private java.time.LocalDate initCollectionDate;
     ArrayList<Integer> uniqueId = new ArrayList<>();
+
+    private ConsoleManager consoleManager;
+    private CollectionManager collectionManager;
+    public FileManager(ConsoleManager consoleManager, CollectionManager collectionManager){
+        this.consoleManager=consoleManager;
+        this.collectionManager=collectionManager;
+    }
     //Writing data to file
     public void fileWrite(LinkedList<Product> collection){
-        String headline="id, name, coordinate X, coordinate Y, creation Date, price, part number, manufacture cost, unit of measure, owner name, owner birthday, owner weight\n";
-        StringBuilder products = new StringBuilder(headline);
+        String path=consoleManager.getPathToFile();
+        if(!path.equals("Exit")){
 
-        for (Product product : collection) {
-            System.out.println(product.toString());
-            products.append(product).append("\n");
+
+            String headline = "id, name, coordinate X, coordinate Y, creation Date, price, part number, manufacture cost, unit of measure, owner name, owner birthday, owner weight\n";
+            StringBuilder products = new StringBuilder(headline);
+
+            for (Product product : collection) {
+                System.out.println(product.toString());
+                products.append(product).append("\n");
+            }
+
+
+            //  ConsoleManager consoleManager = new ConsoleManager();
+            OutputStream outputStream = null;
+            try {
+                File file = new File(path);
+                if (file.isDirectory()) {
+                    throw new PathIsDirectoryExeption("The specified path is a directory");
+                } else if (!file.isFile()) {
+                    throw new MissingFileExeption("No such file exists");
+                } else if (!Files.isWritable(Paths.get(path))) {
+                    throw new LackOfPermissionExeption("Not enough permissions to write to the file");
+                }
+                outputStream = new FileOutputStream(path);
+
+
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+
+
+                outputStreamWriter.write(products.toString());
+                outputStreamWriter.close();
+
+            } catch (FileExeption | FileNotFoundException e) {
+                System.err.println(e.getMessage());
+                fileWrite(collection);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-
-
-        ConsoleManager consoleManager = new ConsoleManager();
-        OutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(consoleManager.getNameFile());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        try {
-            outputStreamWriter.write(products.toString());
-            outputStreamWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -52,90 +81,152 @@ public class FileManager {
 
 
     //Reading data from file
-    public LinkedList<Product> fileRead(String path, ConsoleManager consoleManager, CollectionManager collectionManager) throws IOException{
-
-        StringBuilder fileData= new StringBuilder();
-        FileInputStream fileInputStream = new FileInputStream(path);
-
-        //reading text from a file in bloks of 200 bytes
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream, 200);
-
-        int i;
-
-
-        while((i = bufferedInputStream.read())!= -1){
-            fileData.append((char) i);
-
-        }
-
-        LinkedList<Product> fileDataCollection = new LinkedList<>();//TODO
-
-        //fill array with elements from file
-        String[] arrElements;
-        String delimeter = "\n";
-        arrElements = fileData.toString().split(delimeter);
-
-        if (fileData.toString().equals("") | arrElements.length==1) {
-
-            return fileDataCollection;
-        }else if(fileData.indexOf(",")!=-1){
-
-                //String headline="id, name, coordinate X, coordinate Y, creation Date, price, part number, manufacture cost, unit of measure, owner name, owner birthday, owner weight\n";
-                //        StringBuilder products = new StringBuilder();
-                //
-                //        for (Product product : lists) {
-                //            System.out.println(product.toString());
-                //            products.append(product).append("\n");
-                //        }
-//                for (int k = 0; i < arrStr.length+1; i++) {
-//                    fileCollection.add(arrStr[i]);
-//                }
+    public void fileRead(String path)  {
 
 
 
-            for(int j=1; j<arrElements.length; j++){
 
-                //split elements on product components
-                String[] components=arrElements[j].split(",");
 
-                //Check for the number of elements
-                if(components.length!=12){
-                    System.out.println("In element "+(j+1)+" not all components are present. Add an element or specify another file");
-                    return fileRead(consoleManager.getNameFile(),consoleManager,collectionManager);
-                }else {
+            StringBuilder fileData = new StringBuilder();
+            FileInputStream fileInputStream;
+            try {
+                File file=new File(path);
+                if(file.isDirectory()){
+                    throw new PathIsDirectoryExeption("The specified path is a directory");
+                }else if(!file.isFile()){
+                    throw new MissingFileExeption("No such file exists");
+                }else if(!Files.isReadable(Paths.get(path))){
+                    throw new LackOfPermissionExeption("Not enough permissions to read from the file");
+                }
 
-                    //Add new element in collection and write ID in array
+                fileInputStream = new FileInputStream(path);
 
-                  //  try {
-                    fileDataCollection.add(new Product(Integer.valueOf(components[0].trim()), components[1],
-                                new Coordinates(Long.parseLong(components[2].trim()), Float.parseFloat(components[3].trim())),
-                                LocalDate.parse(components[4].trim()),Integer.parseInt(components[5].trim()),components[6],
-                                Float.valueOf(components[7].trim()), UnitOfMeasure.valueOf(components[8].trim()),new Person(components[9],
-                                LocalDateTime.parse(components[10].trim()),Double.valueOf(components[11].trim()))));
-//,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-                        uniqueId.add(Integer.valueOf(components[0].trim()));
-                        initCollectionDate=consoleManager.getDate();
-//                    }catch (NumberFormatException e) {
-//                        System.err.println("Incorrect numeric data");
-//                    }
+                //reading text from a file in bloks of 200 bytes
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream, 200);
+
+                int i;
+
+
+                while ((i = bufferedInputStream.read()) != -1) {
+                    fileData.append((char) i);
 
                 }
-            }
-            System.out.println(fileDataCollection);
-            collectionManager.setUniqueId(uniqueId);
-            return fileDataCollection;
 
-        }else{
-            System.out.println("Invalid file data format. Enter other path to file");
-            return fileRead(consoleManager.getNameFile(),consoleManager, collectionManager);
-        }
+
+
+
+
+
+                LinkedList<Product> fileDataCollection = new LinkedList<>();
+
+                //fill array with elements from file
+                String[] arrElements;
+                String delimeter = "\n";
+                arrElements = fileData.toString().split(delimeter);
+
+                if (fileData.toString().equals("") || arrElements.length == 1) {
+
+                    collectionManager.setCollection(fileDataCollection);
+                } else if (fileData.indexOf(",") != -1) {
+
+                    for (int j = 1; j < arrElements.length; j++) {
+
+                        //split elements on product components
+                        String[] components = arrElements[j].split(",");
+                                        //Check for the number of elements
+                        if (components.length != 12) {
+                            throw new NotEnoughProductFieldsExeption("In product " + j + " not all components are present. Add an element or specify another file");
+                        } else {
+
+                            //Add new element in collection and write ID in array
+
+                            try {
+                                fileDataCollection.add(new Product(Integer.valueOf(components[0].trim()), components[1],
+                                        new Coordinates(Long.parseLong(components[2].trim()), Float.parseFloat(components[3].trim())),
+                                        LocalDate.parse(components[4].trim()), Integer.parseInt(components[5].trim()), components[6],
+                                        Float.valueOf(components[7].trim()), UnitOfMeasure.valueOf(components[8].trim()), new Person(components[9],
+                                        LocalDateTime.parse(components[10].trim()), Double.valueOf(components[11].trim()))));
+                                uniqueId.add(Integer.valueOf(components[0].trim()));
+                                initCollectionDate = consoleManager.getDate();
+                            } catch (NumberFormatException e) {
+                                System.err.println("Incorrect numeric data in file");
+                                fileRead(consoleManager.getNameFile());
+                            } catch (DateTimeParseException e) {
+                                System.err.println("Incorrect creation date format in file");
+                                fileRead(consoleManager.getNameFile());
+                            } catch (IllegalArgumentException e) {
+                                System.err.println("Incorrect unit of measure in file");
+                                fileRead(consoleManager.getNameFile());
+                            }
+
+                        }
+                    }
+
+                    System.out.println(fileDataCollection);
+                    collectionManager.setUniqueId(uniqueId);
+                    collectionManager.setCollection(fileDataCollection);
+
+                } else {
+                    throw new NotEnoughProductFieldsExeption("Invalid file data format. Enter other path to file");
+                }
+
+
+            } catch (CommandExeption | IOException e) {
+                System.err.println(e.getMessage());
+                fileRead(consoleManager.getNameFile());
+            }
 
 
     }
+
+//time initialization collection
     public LocalDate getInitCollectionDate(){
         return initCollectionDate;
     }
-//    public ArrayList<Integer> getArrayUniqueId(){
-//        return uniqueId;
-//    }
+
+//Reading script program from file
+    public String[] getFileScript(){
+        StringBuilder fileData= new StringBuilder();
+        String path=consoleManager.getPathScriptFile();
+        File file=new File(path);
+        FileInputStream fileInputStream;
+        BufferedInputStream bufferedInputStream;
+        try {
+            if(file.isDirectory()){
+                throw new PathIsDirectoryExeption("The specified path is a directory");
+            }else if(!file.isFile()){
+                throw new MissingFileExeption("No such file exists");
+            }else if(!Files.isReadable(Paths.get(path))){
+                throw new LackOfPermissionExeption("Not enough permissions to read from the file");
+            }
+
+            fileInputStream = new FileInputStream(path);
+
+            //reading script from a file in bloks of 200 bytes
+            bufferedInputStream = new BufferedInputStream(fileInputStream, 200);
+            int k;
+            while ((k = bufferedInputStream.read()) != -1) {
+                fileData.append((char) k);
+            }
+
+
+
+
+
+            //fill array with data from file
+            System.out.println(fileData);
+            String[] scriptFile;
+            String delimeter = "\n";
+            scriptFile = fileData.toString().replaceAll("\r","").split(delimeter);
+
+
+            return scriptFile;
+        } catch (FileExeption | FileNotFoundException e) {
+            System.err.println(e.getMessage());
+            return getFileScript();
+        }catch (IOException ex){
+            ex.printStackTrace();
+            return getFileScript();
+        }
+    }
 }

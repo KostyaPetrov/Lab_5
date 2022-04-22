@@ -15,39 +15,42 @@ public class Product {
     private UnitOfMeasure unitOfMeasure; //Поле не может быть null
     private Person owner; //Поле может быть null
 
-//    ArrayList listId = new ArrayList<>();
-    public Product(Integer id, String name, Coordinates coordinates, LocalDate creationDate, int price, String partNumber, Float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner){
-        this.id=id;
-        this.name=name;
-        this.coordinates=coordinates;
-        this.creationDate=creationDate;
-        this.price=price;
-        this.partNumber=partNumber;
-        this.manufactureCost=manufactureCost;
-        this.unitOfMeasure=unitOfMeasure;
-        this.owner=owner;
+    public Product(Integer id, String name, Coordinates coordinates, LocalDate creationDate, int price, String partNumber, Float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner) {
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.price = price;
+        this.partNumber = partNumber;
+        this.manufactureCost = manufactureCost;
+        this.unitOfMeasure = unitOfMeasure;
+        this.owner = owner;
     }
-
-//    public void uniqueId(){
-//        if (listId.isEmpty()){
-//            listId.add(1);
-//            this.id= 1;
-//        }else {
-//            listId.add((int) Collections.max(listId) + 1);
-//            this.id= (int) Collections.max(listId) + 1;
-//
-//        }
-//    }
-
 
     @Override
     public String toString(){
-        return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",id,name,coordinates, creationDate,price,partNumber,manufactureCost,unitOfMeasure,owner);
+
+            return String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s",id,name,coordinates, creationDate,price,partNumber,manufactureCost,unitOfMeasure,owner);
+
+
+    }
+
+
+
+    public int getId(){
+        return id;
+    }
+    public String getName(){
+        return name;
+    }
+    public Coordinates getCoordinates(){
+        return coordinates;
     }
 
     public Integer getPrice(){
         return price;
     }
+    public String getPartNumber(){return partNumber;}
     public LocalDate getCreationDate(){
         return creationDate;
     }
@@ -55,45 +58,6 @@ public class Product {
     public UnitOfMeasure getUnitOfMeasure(){
         return unitOfMeasure;
     }
-//    public String createElementCollection(){
-//        uniqueId();
-//
-//        ConsoleManager consoleManager = new ConsoleManager();
-//
-//
-//
-//        this.name=consoleManager.getName();
-//
-//        Coordinates coordinates=new Coordinates(consoleManager.getCoordinateX(),consoleManager.getCoordinateY());
-//
-//
-//
-//        LocalDate date = LocalDate.now();
-//        this.creationDate= date;
-//
-//        this.price=consoleManager.getPrice();
-//
-//        this.partNumber=consoleManager.getPartNumber();
-//
-//        this.manufactureCost=consoleManager.getManufactureCost();
-//
-//        this.unitOfMeasure= UnitOfMeasure.valueOf(consoleManager.getUnitOfMeasure());
-//
-//        Person owner = new Person(consoleManager.namePerson(),consoleManager.birthdayPerson(),consoleManager.weightPerson());
-//
-//        String element = new String(id+" | "+
-//                name +" | "+
-//                coordinates.getX() +" | "+
-//                coordinates.getY() +" | "+
-//                creationDate+" | "+
-//                price+" | "+
-//                partNumber+" | "+
-//                manufactureCost+" | "+
-//                unitOfMeasure+" | "+
-//                owner.getNamePerson()+" | "+
-//                owner.getBirthday()+" | "+
-//                owner.getWeight());
-//
-//        return element;
-//    }
+    public Person getOwner(){return owner;}
+
 }

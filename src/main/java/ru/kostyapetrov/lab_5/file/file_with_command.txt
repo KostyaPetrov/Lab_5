@@ -1,0 +1,14 @@
+show
+info
+head
+add
+Milk
+10
+10
+10
+10
+10
+LITERS
+Kostya
+2004-12-12T12:12
+70

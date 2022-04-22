@@ -21,8 +21,21 @@ public class Person {
     public Double getWeight(){
         return weight;
     }
-
+    @Override
     public String toString(){
-        return String.format(" %s, %s, %s",name,birthday,weight);
+//        if(name.equals(null) || birthday.equals(null) || weight.equals(null)){
+//            return null;
+//        }else if(!name.equals(null) || !birthday.equals(null) || weight.equals(null) ){
+//            return String.format(" %s, %s", name, birthday);
+//        }else if(name.equals(null) || birthday.equals(null) || weight.equals(null)){
+//            return String.format(" %s, %s", name, weight);
+//        }else if(birthday.equals(null) || weight.equals(null)) {
+//            return String.format(" %s, %s", birthday, weight);
+//        }else if()
+//        }else{
+//            return String.format(" %s, %s, %s", name, birthday, weight);
+//        }
+        return String.format(" %s, %s, %s", name, birthday, weight);
     }
+
 }

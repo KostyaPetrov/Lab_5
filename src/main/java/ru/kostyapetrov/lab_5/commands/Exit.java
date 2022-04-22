@@ -12,6 +12,7 @@ public class Exit implements Commandable {
     public void execute(String s){
 
         System.out.println("Have a good day!");
-        consoleManager.closeScan();
+        //consoleManager.closeScan();
+
     }
 }

@@ -1,17 +1,17 @@
 package ru.kostyapetrov.lab_5.commands;
 
 import ru.kostyapetrov.lab_5.collection.CollectionManager;
-import ru.kostyapetrov.lab_5.console.ConsoleManager;
+
 
 
 import java.util.LinkedList;
 
 public class History implements Commandable{
-    private ConsoleManager consoleManager;
+
     private CollectionManager collectionManager;
 
-    public History(ConsoleManager consoleManager, CollectionManager collectionManager){
-        this.consoleManager=consoleManager;
+    public History(CollectionManager collectionManager){
+
         this.collectionManager=collectionManager;
     }
 
@@ -23,7 +23,7 @@ public class History implements Commandable{
             System.out.println((i+1)+"."+collectCommand.get(i));
         }
 
-        consoleManager.getCommand();
+
     }
 
 

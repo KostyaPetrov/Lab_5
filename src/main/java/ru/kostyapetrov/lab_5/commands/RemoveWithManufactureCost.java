@@ -34,20 +34,21 @@ public class RemoveWithManufactureCost implements Commandable{
         LinkedList<Product> collectionElements=collectionManager.getCollection();
 
         removeCost=consoleManager.getRemoveManufactureCost();
+        if(consoleManager.getExeptionInfo()){
+            consoleManager.setExeptionInfo(false);
+        }else {
 
+            for (int i = 0; i < collectionElements.size(); i++) {
 
-        for(int i=0; i<collectionElements.size();i++){
-
-            if(removeCost.equals(collectionElements.get(i).getManufactureCost())){
-                collectionElements.remove(i);
-//for the correct output of the final collection
-                i=i-1;
-            }else{
-                System.out.println(collectionElements.get(i));
+                if (removeCost.equals(collectionElements.get(i).getManufactureCost())) {
+                    collectionElements.remove(i);
+                    //for the correct output of the final collection
+                    i = i - 1;
+                } else {
+                    System.out.println(collectionElements.get(i));
+                }
             }
+            collectionManager.setCollection(collectionElements);
         }
-        collectionManager.setCollection(collectionElements);
-
-        consoleManager.getCommand();
     }
 }

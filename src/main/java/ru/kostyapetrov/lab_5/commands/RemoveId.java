@@ -21,23 +21,25 @@ public class RemoveId implements Commandable {
     @Override
     public void execute(String s){
         Integer removeId = consoleManager.getRemoveId();
+        if(consoleManager.getExeptionInfo()){
+            consoleManager.setExeptionInfo(false);
+        }else {
 
-        collectionElements=collectionManager.getCollection();
-        collectionId=collectionManager.getUniqueId();
-//get position element in collection and remove them
-        indexElementCollection=collectionId.indexOf(removeId);
+            collectionElements = collectionManager.getCollection();
+            collectionId = collectionManager.getUniqueId();
+            //get position element in collection and remove them
+            indexElementCollection = collectionId.indexOf(removeId);
 
-        System.out.println(indexElementCollection);
-        int i= indexElementCollection;
-        collectionElements.remove(i);
-        collectionId.remove(i);
+            System.out.println(indexElementCollection);
+            int i = indexElementCollection;
+            collectionElements.remove(i);
+            collectionId.remove(i);
 
-//write new colllection in collection storage
-        System.out.println(collectionElements);
-        collectionManager.setCollection(collectionElements);
-        collectionManager.setUniqueId(collectionId);
-
-        consoleManager.getCommand();
+            //write new colllection in collection storage
+            System.out.println(collectionElements);
+            collectionManager.setCollection(collectionElements);
+            collectionManager.setUniqueId(collectionId);
+        }
     }
 
 }

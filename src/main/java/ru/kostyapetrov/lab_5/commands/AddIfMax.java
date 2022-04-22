@@ -30,9 +30,8 @@ public class AddIfMax implements Commandable {
             collectionManager.setCollection(collectionElements);
             System.out.println("Element added");
         }else{
-            System.out.println("Price of your product is not highest. Product noy added.");
+            System.out.println("Price of your product is not highest. Product not added.");
         }
 
-        consoleManager.getCommand();
     }
 }

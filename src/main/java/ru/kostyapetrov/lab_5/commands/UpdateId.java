@@ -26,24 +26,23 @@ public class UpdateId implements Commandable{
         LinkedList<Product> collectionElements = collectionManager.getCollection();
 
         updateId=consoleManager.getUpdateId();
+        if(consoleManager.getExeptionInfo()){
+            consoleManager.setExeptionInfo(false);
+        }else {
 
 
-        //find position needed element collection if in collection id elements and replace element new product with old id and creation date, but new else field
-        indexElementCollection= collectionId.indexOf(updateId);
-        collectionElements.set(indexElementCollection,new Product(updateId,consoleManager.getName(),new Coordinates(consoleManager.getCoordinateX(),consoleManager.getCoordinateY()),
-                collectionElements.get(indexElementCollection).getCreationDate(), consoleManager.getPrice(), consoleManager.getPartNumber(), consoleManager.getManufactureCost(),
-                consoleManager.getUnitOfMeasure(), new Person(consoleManager.getNamePerson(),consoleManager.getBirthdayPerson(), consoleManager.getWeightPerson())));
+            //find position needed element collection if in collection id elements and replace element new product with old id and creation date, but new else field
+            indexElementCollection = collectionId.indexOf(updateId);
+            collectionElements.set(indexElementCollection, new Product(updateId, consoleManager.getName(), new Coordinates(consoleManager.getCoordinateX(), consoleManager.getCoordinateY()),
+                    collectionElements.get(indexElementCollection).getCreationDate(), consoleManager.getPrice(), consoleManager.getPartNumber(), consoleManager.getManufactureCost(),
+                    consoleManager.getUnitOfMeasure(), new Person(consoleManager.getNamePerson(), consoleManager.getBirthdayPerson(), consoleManager.getWeightPerson())));
 
-//        for(int i=0;i<collectionElements.size(); i++){
-//            if(collectionElements.get(i).getId()==updateId){
-//
-//            }
-//        }
-        //write new colllection in collection storage
-        System.out.println(collectionElements);
-        collectionManager.setCollection(collectionElements);
 
-        consoleManager.getCommand();
+            //write new colllection in collection storage
+            System.out.println(collectionElements);
+            collectionManager.setCollection(collectionElements);
+        }
+
 
     }
 }

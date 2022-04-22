@@ -2,13 +2,14 @@ package ru.kostyapetrov.lab_5.main;
 
 
 import ru.kostyapetrov.lab_5.collection.CollectionManager;
+import ru.kostyapetrov.lab_5.commands.CommandManager;
 import ru.kostyapetrov.lab_5.console.ConsoleManager;
 import ru.kostyapetrov.lab_5.file.FileManager;
 
-import java.io.IOException;
+
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //"C:\Users\Костя\Desktop\ITMO\ITMO_2sem\proga\Lab_5\src\main\java\ru\kostyapetrov\lab_5\File\\collection_storage.csv"
 //1, Milk, 10,10.0, 2022-04-05, 10, 10, 10.0, LITERS,  Kostya, 2004-12-12T12:12, 70.0
 // 3, cat, 45,45.0, 2022-04-05, 45, 45, 45.0, GRAMS,  45, 2000-08-09T13:10, 90.0
@@ -17,26 +18,29 @@ public class Main {
         //3, Putin, 100,10.0, 2022-04-07, 0, 1, 0.0, MILLILITERS,  Me, 1952-04-12T22:22, 90.0
         System.out.println("Hellow, dear user!\n" +
                 "Welcome to the product collection manager\n"+
-                "C:\\Users\\Костя\\Desktop\\ITMO\\ITMO_2sem\\proga\\Lab_5\\src\\main\\java\\ru\\kostyapetrov\\lab_5\\File\\\\collection_storage.csv\n");
+                "C:\\Users\\Костя\\Desktop\\ITMO\\ITMO_2sem\\proga\\Lab_5\\src\\main\\java\\ru\\kostyapetrov\\lab_5\\File\\collection_storage.csv\n"+
+                "execute_script C:\\Users\\Костя\\Desktop\\ITMO\\ITMO_2sem\\proga\\Lab_5\\src\\main\\java\\ru\\kostyapetrov\\lab_5\\File\\file_with_command.txt\n");
         ConsoleManager consoleManager = new ConsoleManager();
         CollectionManager collectionManager = new CollectionManager();
-        FileManager fileManager = new FileManager();
-
+        FileManager fileManager = new FileManager(consoleManager,collectionManager);
+        CommandManager commandManager = new CommandManager(collectionManager,consoleManager,fileManager);
 
         //Read data from a file
-        try {
-            collectionManager.setCollection(fileManager.fileRead(consoleManager.getNameFile(),consoleManager,collectionManager));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        consoleManager.getObject(collectionManager,consoleManager,fileManager);
+        fileManager.fileRead(consoleManager.getNameFile());
+
+
+
+        consoleManager.getObject(collectionManager,consoleManager,fileManager,commandManager);
+
         consoleManager.getCommand();
 
 
-     //   CommandManager commandManager = new CommandManager(collectionManager,consoleManager,fileManager);
+
+
 
     }
+
 }
 
 

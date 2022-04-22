@@ -2,6 +2,8 @@ package ru.kostyapetrov.lab_5.commands;
 
 
 import ru.kostyapetrov.lab_5.collection.CollectionManager;
+import ru.kostyapetrov.lab_5.collection.Coordinates;
+import ru.kostyapetrov.lab_5.collection.Person;
 import ru.kostyapetrov.lab_5.collection.Product;
 
 import ru.kostyapetrov.lab_5.console.ConsoleManager;
@@ -11,7 +13,7 @@ import java.util.LinkedList;
 public class Add implements Commandable {
     private ConsoleManager consoleManager;
     private CollectionManager collectionManager;
-    private LinkedList<Product> list;
+
     public Add(CollectionManager collectionManager, ConsoleManager consoleManager) {
         this.collectionManager=collectionManager;
         this.consoleManager=consoleManager;
@@ -19,19 +21,18 @@ public class Add implements Commandable {
     @Override
     public void execute(String s){
 
-       // Product element = new Product();
-        //CollectionManager collectionManager = new CollectionManager();
 
-        //LinkedList<Product> list = new LinkedList<>();
-       // oldCollection.add(element.createElementCollection());
-       // collectionManager.newCollection(oldCollection);
-        list=collectionManager.getCollection();
-        list.add(consoleManager.getProduct());
+        LinkedList<Product> list = collectionManager.getCollection();
+        Product product=consoleManager.getProduct();
+
+        list.add(product);
+
+
+
         System.out.println(list);
         collectionManager.setCollection(list);
 
-        //ConsoleManager consoleManager=new ConsoleManager();
-        consoleManager.getCommand();
+
 
 
 

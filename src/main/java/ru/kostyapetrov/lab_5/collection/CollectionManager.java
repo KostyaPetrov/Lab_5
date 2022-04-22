@@ -6,16 +6,11 @@ import java.util.LinkedList;
 
 public class CollectionManager {
 
-   // LinkedList<String> collect=new LinkedList<>();
-
-//collet.createElementCollection()
-    //LinkedList<String> collec = new LinkedList<>();
     ArrayList<Integer> listUniqueId;
     LinkedList<Product> collect;
     LinkedList<String> historyCommand=new LinkedList<>();
-    public CollectionManager(){
-
-    }
+    public CollectionManager(){}
+//getter and setter product collection
     public LinkedList<Product> getCollection(){
 
         return collect;
@@ -27,6 +22,7 @@ public class CollectionManager {
         this.collect=collect;
     }
 
+//Getter and setter collection with unique id
     public ArrayList<Integer> getUniqueId(){
         return listUniqueId;
     }
@@ -34,11 +30,12 @@ public class CollectionManager {
         this.listUniqueId=listUniqueId;
     }
 
-
+//getter and setter for collection command
     public LinkedList<String> getHistoryCommand(){
         return historyCommand;
     }
     public void setCommand(String command){
+//only the last 15 commands are stored, so there is a check
         if(historyCommand.size()<15){
             historyCommand.add(command);
         }else{
@@ -47,9 +44,3 @@ public class CollectionManager {
         }
     }
 }
-
-
-//        ArrayList<Integer> listUniqueId=new ArrayList<>();
-//        LinkedList<Product> collect=new LinkedList<>();
-//        this.listUniqueId=listUniqueId;
-//        this.collect=collect;

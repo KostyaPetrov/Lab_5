@@ -11,13 +11,13 @@ import java.util.LinkedList;
 public class Info implements Commandable{
     private CollectionManager collectionManager;
     private FileManager fileManager;
-    private ConsoleManager consoleManager;
+
     private LinkedList<Product> collectionElements;
 
-    public Info(CollectionManager collectionManager, FileManager fileManager, ConsoleManager consoleManager){
+    public Info(CollectionManager collectionManager, FileManager fileManager){
         this.collectionManager=collectionManager;
         this.fileManager=fileManager;
-        this.consoleManager=consoleManager;
+
     }
     @Override
     public void execute(String s){
@@ -30,7 +30,7 @@ public class Info implements Commandable{
             System.out.format("LinkedList, %s, %s\n", fileManager.getInitCollectionDate(), collectionElements.size());
         }
 
-        consoleManager.getCommand();
+
 
     }
 }
