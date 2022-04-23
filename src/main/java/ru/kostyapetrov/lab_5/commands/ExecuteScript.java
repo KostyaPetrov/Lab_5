@@ -2,6 +2,7 @@ package ru.kostyapetrov.lab_5.commands;
 
 import ru.kostyapetrov.lab_5.collection.*;
 import ru.kostyapetrov.lab_5.console.ConsoleManager;
+import ru.kostyapetrov.lab_5.exeption.RecursiveScriptExeption;
 import ru.kostyapetrov.lab_5.file.FileManager;
 
 
@@ -52,21 +53,21 @@ public class ExecuteScript implements Commandable{
                 //write new colllection in collection storage
                 collectionManager.setCollection(collectionElements);
             }else{
-                consoleManager.getCommand(scriptFile[i]);
-                if(consoleManager.getExeptionInfo()){
-                    consoleManager.setExeptionInfo(false);
-                    break;
-                }
                 if(scriptFile[i].equals("exit")){
                     consoleManager.setEndScriptCommand("exit");
                     break;
                 }
 
-            }
-            if(i==scriptFile.length-1){
-                System.out.println("Script from file completed");
+                consoleManager.getCommand(scriptFile[i]);
+                if(consoleManager.getExeptionInfo()){
+                    consoleManager.setExeptionInfo(false);
+                    break;
+                }
+
+
             }
         }
+
     }
 
 }

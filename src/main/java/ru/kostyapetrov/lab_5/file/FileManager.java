@@ -184,14 +184,16 @@ public class FileManager {
         return initCollectionDate;
     }
 
-//Reading script program from file
+//Reading script program from file and return script from file as list
     public String[] getFileScript(){
         StringBuilder fileData= new StringBuilder();
         String path=consoleManager.getPathScriptFile();
+
         File file=new File(path);
         FileInputStream fileInputStream;
         BufferedInputStream bufferedInputStream;
         try {
+
             if(file.isDirectory()){
                 throw new PathIsDirectoryExeption("The specified path is a directory");
             }else if(!file.isFile()){
@@ -224,6 +226,8 @@ public class FileManager {
         } catch (FileExeption | FileNotFoundException e) {
             System.err.println(e.getMessage());
             return getFileScript();
+
+
         }catch (IOException ex){
             ex.printStackTrace();
             return getFileScript();

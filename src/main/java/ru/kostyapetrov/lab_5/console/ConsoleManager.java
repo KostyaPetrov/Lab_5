@@ -98,6 +98,7 @@ public class ConsoleManager {
 
     public void getCommand(String inputCommand){
         String[] arrCommandLine;
+        ArrayList<String> collection;
         try {
             if(inputCommand.isEmpty()){
                 throw new IncorrectCommandExeption("Command can not be null");
@@ -113,22 +114,28 @@ public class ConsoleManager {
 
             } else {
                 arrCommandLine = inputCommand.split(" ");
+                collection=collectionManager.getCollectionPathToScript();
                 if (!arrCommandLine[0].equals("remove_by_id") && !arrCommandLine[0].equals("execute_script") && !arrCommandLine[0].equals("remove_all_by_manufacture_cost") && !arrCommandLine[0].equals("remove_all_by_manufacture_cost")) {
                     throw new IncorrectCommandExeption("\"" + inputCommand + "\"" + " invalid command format");
-                }else if(arrCommandLine[0].equals("execute_script") && Files.isSameFile(Paths.get(arrCommandLine[1]), Paths.get(pathExecuteScript))){
-                    throw new RecursiveScriptExeption("Recursive in file");
+
                 } else {
+                    if(arrCommandLine[0].equals("execute_script") && collection.contains(arrCommandLine[1].trim())) {
+                        collectionManager.setCollectionPathToScript(new ArrayList<>());
+                        throw new RecursiveScriptExeption("Recursive in file");
+                    }else{
+                        collection.add(arrCommandLine[1]);
+                        collectionManager.setCollectionPathToScript(collection);
+                    }
                     map.put(arrCommandLine[0], arrCommandLine[1]);
                     collectionManager.setCommand(arrCommandLine[0]);
                     commandManager.execCommand(arrCommandLine[0]);
                 }
 
+
             }
         }catch (CommandExeption e){
             System.err.println(e.getMessage());
             setExeptionInfo(true);
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -162,11 +169,13 @@ public class ConsoleManager {
     }
 
     public String getPathToFile(){
+
         System.out.println("Enter path to file");
         Scanner in = new Scanner(System.in);
         try {
+            String path=in.nextLine();
 
-            return (in.nextLine());
+            return (path);
 
         }catch (NoSuchElementException e) {
             in = new Scanner(System.in);
@@ -463,8 +472,8 @@ public class ConsoleManager {
 
     String pathExecuteScript;
     public String getPathScriptFile(){
-        pathExecuteScript=map.get("execute_script");
-        return pathExecuteScript;
+       // pathExecuteScript=map.get("execute_script");
+        return map.get("execute_script");
     }
 
     public void setEndScriptCommand(String endCommand){

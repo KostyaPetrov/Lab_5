@@ -4,38 +4,72 @@ package ru.kostyapetrov.lab_5.collection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ *class that work with collections
+ */
 public class CollectionManager {
 
     ArrayList<Integer> listUniqueId;
+    /**main collection with elements Product*/
     LinkedList<Product> collect;
     LinkedList<String> historyCommand=new LinkedList<>();
+    private ArrayList<String> collectionPathToScript=new ArrayList<>();
     public CollectionManager(){}
-//getter and setter product collection
+
+    /**
+     * getter product collection
+     *
+     * @return Collection elements
+     */
     public LinkedList<Product> getCollection(){
 
         return collect;
 
     }
 
+    /**
+     * setter product collection
+     *
+     * @param collect new collection elements Product, witch we get for intermediate storage
+     */
     public void setCollection(LinkedList<Product> collect){
 
         this.collect=collect;
     }
 
-//Getter and setter collection with unique id
+    /**
+     * Getter collection with unique id
+     *
+     * @return collection with unique id all elements main collection
+     */
     public ArrayList<Integer> getUniqueId(){
         return listUniqueId;
     }
+    /**
+     * setter collection with unique id
+     *
+     * @param listUniqueId new collection unique id, witch we get for intermediate storage
+     */
     public void setUniqueId(ArrayList<Integer> listUniqueId){
         this.listUniqueId=listUniqueId;
     }
 
-//getter and setter for collection command
+    /**
+     * getter for collection command
+     *
+     * @return collection of 15 last command
+     */
     public LinkedList<String> getHistoryCommand(){
         return historyCommand;
     }
+    /**
+     * setter for collection command
+     *
+     * @param command last command, witch was execute
+     */
     public void setCommand(String command){
-//only the last 15 commands are stored, so there is a check
+
+    //only the last 15 commands are stored, so there is a check
         if(historyCommand.size()<15){
             historyCommand.add(command);
         }else{
@@ -43,4 +77,13 @@ public class CollectionManager {
             historyCommand.add(command);
         }
     }
+
+    public ArrayList<String> getCollectionPathToScript(){
+        return collectionPathToScript;
+    }
+
+    public void setCollectionPathToScript(ArrayList<String> collectionPathToScript){
+        this.collectionPathToScript=collectionPathToScript;
+    }
+
 }
