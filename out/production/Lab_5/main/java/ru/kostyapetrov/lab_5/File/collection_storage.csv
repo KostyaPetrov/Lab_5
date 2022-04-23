@@ -1,4 +1,0 @@
-id, name, coordinate X, coordinate Y, creation Date, price, part number, manufacture cost, unit of measure, owner name, owner birthday, owner weight
-1,  Milk, 10,10.0, 2022-04-05, 10,  10, 10.0, LITERS,    Kostya, 2004-12-12T12:12, 70.0
-3,  cat, 45,45.0, 2022-04-05, 45,  45, 45.0, GRAMS,    45, 2000-08-09T13:10, 90.0
-5, Tanya, 10,10.0, 2022-04-05, 1564, 132465798, 100.0, LITERS,  Tolya, 1940-08-16T19:20, 90.0
